@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brain MRI Tumor Detection</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f6ff;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            color: #1d4ed8;
+        }
+
+        input {
+            margin: 20px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+
+        img {
+            max-width: 350px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #eef4ff;
+            border-radius: 10px;
+        }
+
+        .warning {
+            color: #b45309;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧠 Brain MRI Tumor Detection</h1>
+
+    <p>Upload a brain MRI image for AI-based classification.</p>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="file" accept="image/*" required>
+
+        <br>
+
+        <button type="submit">Upload & Predict</button>
+
+    </form>
+
+    {% if image_path %}
+
+        <div class="result">
+
+            <h2>Uploaded MRI</h2>
+
+            <img src="{{ image_path }}" alt="MRI Image">
+
+            <h2>Prediction: {{ prediction }}</h2>
+
+            <h3>Confidence: {{ confidence }}%</h3>
+
+            <p>{{ advice }}</p>
+
+        </div>
+
+    {% endif %}
+
+    {% if error %}
+
+        <p class="error">{{ error }}</p>
+
+    {% endif %}
+
+    <p class="warning">
+        ⚠️ This system is for educational/research purposes only.
+        It is not a medical diagnosis. Please consult a qualified
+        healthcare professional for medical advice.
+    </p>
+
+</div>
+
+</body>
+</html>
